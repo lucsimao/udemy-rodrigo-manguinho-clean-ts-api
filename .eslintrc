@@ -1,4 +1,8 @@
 {
   "extends": "standard-with-typescript",
-  "parserOptions": { "project": "./tsconfig.json" }
+  "parserOptions": { "project": "./tsconfig.json" },
+  "rules": {
+    "comma-dangle": "off",
+    "@typescript-eslint/semi": "off"
+  }
 }
