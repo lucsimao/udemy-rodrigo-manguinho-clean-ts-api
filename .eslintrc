@@ -3,6 +3,7 @@
   "parserOptions": { "project": "./tsconfig.json" },
   "rules": {
     "comma-dangle": "off",
-    "@typescript-eslint/semi": "off"
+    "@typescript-eslint/semi": "off",
+    "@typescript-eslint/space-before-function-paren": "off"
   }
 }
