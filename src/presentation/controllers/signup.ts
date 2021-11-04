@@ -1,5 +1,6 @@
 import { HttpRequest } from '../protocols/http';
 import { MissingParamError } from '../protocols/missing-param-error';
+import { badRequest } from '../helpers/http-helper';
 
 export interface IUser {
   name: string;
@@ -7,11 +8,11 @@ export interface IUser {
 }
 export class SignUpController {
   handle(httpRequest: HttpRequest<IUser>): any {
-    if (!httpRequest.body?.name) {
-      return { statusCode: 400, body: new MissingParamError('name') };
-    }
-    if (!httpRequest.body.email) {
-      return { statusCode: 400, body: new MissingParamError('email') };
+    const requiredFields = ['name', 'email'];
+    for (const field of requiredFields) {
+      if (httpRequest.body && !httpRequest.body[field]) {
+        return badRequest(new MissingParamError(field));
+      }
     }
   }
 }

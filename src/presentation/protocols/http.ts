@@ -1,7 +1,7 @@
 export interface HttpResponse<T> {
   statusCode: number;
   body: T;
-  headers: [{ [key: string]: unknown }];
+  headers?: [{ [key: string]: unknown }];
 }
 
 export interface HttpRequest<T> {
