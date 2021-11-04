@@ -1,10 +1,25 @@
 {
-  "extends": "standard-with-typescript",
-  "parserOptions": { "project": "./tsconfig.json" },
+  "env": {
+    "jest": true,
+    "jasmine": true
+  },
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "rules": {
-    "comma-dangle": "off",
-    "@typescript-eslint/semi": "off",
-    "@typescript-eslint/space-before-function-paren": "off",
-    "@typescript-eslint/strict-boolean-expressions": "off"
+    "no-console": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "sort-imports": "error"
   }
 }
