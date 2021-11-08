@@ -10,6 +10,7 @@ import { InvalidParamError, MissingParamError } from '../../errors';
 import { badRequest, serverError } from '../../helpers/http-helper';
 
 import { AccountModel } from './../../../domain/models/account';
+import { ok } from './../../helpers/http-helper';
 
 export class SignUpController
   implements Controller<User, Error | AccountModel>
@@ -46,7 +47,7 @@ export class SignUpController
         return badRequest(new InvalidParamError('email'));
       }
       const account = this.addAccount.add({ name, email, password });
-      return { statusCode: 200, body: account };
+      return ok<AccountModel>(account);
     } catch (error) {
       return serverError();
     }
