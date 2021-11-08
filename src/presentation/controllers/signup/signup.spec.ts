@@ -1,8 +1,15 @@
-import { AddAccount, AddAccountModel } from './../../domain/use-cases';
-import { InvalidParamError, MissingParamError, ServerError } from '../errors';
+import {
+  AddAccount,
+  AddAccountModel,
+  EmailValidator,
+} from './signup-protocols';
+import {
+  InvalidParamError,
+  MissingParamError,
+  ServerError,
+} from '../../errors';
 
-import { AccountModel } from '../../domain/models';
-import { EmailValidator } from './../protocols';
+import { AccountModel } from '../../../domain/models';
 import { SignUpController } from './signup';
 
 const makeEmailValidator = (): EmailValidator => {
@@ -201,6 +208,10 @@ describe('SignUp Controller', () => {
 
     sut.handle(httpRequest as any);
 
-    expect(addSpy).toBeCalledWith(500);
+    expect(addSpy).toBeCalledWith({
+      email: 'any_email@mail.com',
+      name: 'any_name',
+      password: 'any_password',
+    });
   });
 });
