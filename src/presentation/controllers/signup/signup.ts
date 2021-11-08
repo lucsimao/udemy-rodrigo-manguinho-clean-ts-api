@@ -9,7 +9,11 @@ import {
 import { InvalidParamError, MissingParamError } from '../../errors';
 import { badRequest, serverError } from '../../helpers/http-helper';
 
-export class SignUpController implements Controller<User, Error> {
+import { AccountModel } from './../../../domain/models/account';
+
+export class SignUpController
+  implements Controller<User, Error | AccountModel>
+{
   private readonly emailValidator: EmailValidator;
   private readonly addAccount: AddAccount;
 
@@ -18,7 +22,7 @@ export class SignUpController implements Controller<User, Error> {
     this.addAccount = addAccount;
   }
 
-  handle(httpRequest: HttpRequest<User>): HttpResponse<Error> {
+  handle(httpRequest: HttpRequest<User>): HttpResponse<Error | AccountModel> {
     try {
       const requiredFields = [
         'name',
@@ -41,8 +45,8 @@ export class SignUpController implements Controller<User, Error> {
       if (!isValid) {
         return badRequest(new InvalidParamError('email'));
       }
-      this.addAccount.add({ name, email, password });
-      return { statusCode: 400, body: new Error('') };
+      const account = this.addAccount.add({ name, email, password });
+      return { statusCode: 200, body: account };
     } catch (error) {
       return serverError();
     }
