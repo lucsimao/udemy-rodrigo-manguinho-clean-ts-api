@@ -5,5 +5,5 @@ export interface HttpResponse<T> {
 }
 
 export interface HttpRequest<T> {
-  body?: T;
+  body: T;
 }
