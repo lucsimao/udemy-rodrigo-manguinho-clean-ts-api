@@ -8,12 +8,13 @@
     "test:verbose": "jest --passWithNoTests",
     "test:unit": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "npm test -- --coverage"
+    "test:ci": "jest --clearCache && npm test -- --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@shelf/jest-mongodb": "^2.1.0",
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
@@ -32,7 +33,9 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
+    "@types/mongodb": "^4.0.7",
     "bcrypt": "^5.0.1",
+    "mongodb": "^4.1.4",
     "validator": "^13.7.0"
   }
 }
