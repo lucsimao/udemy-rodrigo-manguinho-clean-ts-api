@@ -32,11 +32,10 @@ describe('Bcrypt Adapter', () => {
 
   test('should throw when bcrypt throws', async () => {
     const { sut } = makeSut();
-    jest
-      .spyOn(bcrypt, 'hash')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error('')))
-      );
+    const hashSpy = jest.spyOn(bcrypt, 'hash') as jest.Mock;
+    hashSpy.mockReturnValueOnce(
+      new Promise((resolve, reject) => reject(new Error('')))
+    );
 
     const result = sut.encrypt('any_value');
 
