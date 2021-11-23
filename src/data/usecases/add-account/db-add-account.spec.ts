@@ -64,7 +64,7 @@ describe('DbAddAccount Usecase', () => {
     const { sut, encrypterStub } = makeSut();
 
     jest.spyOn(encrypterStub, 'encrypt').mockRejectedValueOnce(new Error());
-    const accountData = makeFakeAccount(a);
+    const accountData = makeFakeAccount();
 
     const promise = sut.add(accountData);
 
