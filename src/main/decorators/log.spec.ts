@@ -36,7 +36,7 @@ const makeServerError = () => {
 
 const makeLogErrorRepository = () => {
   class LogErrorRespositoryStub implements LogErrorRepository {
-    async log(stack: string): Promise<void> {
+    async logError(stack: string): Promise<void> {
       return Promise.resolve();
     }
   }
@@ -86,7 +86,7 @@ describe('LogControllerDecorator', () => {
 
   it('should call LogErrorRespository with correct error when controller returns a server error', async () => {
     const { sut, controllerStub, logErrorRespositoryStub } = makeSut();
-    const logSpy = jest.spyOn(logErrorRespositoryStub, 'log');
+    const logSpy = jest.spyOn(logErrorRespositoryStub, 'logError');
     jest.spyOn(controllerStub, 'handle').mockResolvedValue(makeServerError());
     const httpRequest = makeFakeRequest();
 
