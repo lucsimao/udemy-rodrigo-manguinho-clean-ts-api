@@ -5,7 +5,11 @@ import {
   HttpResponse,
 } from '../../protocols';
 import { InvalidParamError, MissingParamError } from '../../errors';
-import { badRequest, serverError } from '../../helpers/http-helper';
+import {
+  badRequest,
+  serverError,
+  unauthorized,
+} from '../../helpers/http-helper';
 
 import { Authentication } from '../../../domain/use-cases/authentication';
 
@@ -24,18 +28,23 @@ export class LoginController implements Controller {
     httpRequest: HttpRequest<ILogin>
   ): Promise<HttpResponse<unknown>> {
     try {
+      const requiredFields = ['email', 'password'];
+
+      for (const field of requiredFields) {
+        if (!httpRequest.body[field]) {
+          return badRequest(new MissingParamError(field));
+        }
+      }
+
       const { email, password } = httpRequest.body;
-      if (!email) {
-        return badRequest(new MissingParamError('email'));
-      }
-      if (!password) {
-        return badRequest(new MissingParamError('password'));
-      }
       const isValid = this.emailValidator.isValid(email);
       if (!isValid) {
         return badRequest(new InvalidParamError('email'));
       }
-      await this.authentication.auth(email, password);
+      const accessToken = await this.authentication.auth(email, password);
+      if (accessToken === '') {
+        return unauthorized();
+      }
       return badRequest(new InvalidParamError('emai32432423l'));
     } catch (error) {
       return serverError(error);
