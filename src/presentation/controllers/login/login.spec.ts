@@ -3,6 +3,7 @@ import { ILogin, LoginController } from './login';
 import { InvalidParamError, MissingParamError } from '../../errors';
 import {
   badRequest,
+  ok,
   serverError,
   unauthorized,
 } from '../../helpers/http-helper';
@@ -115,6 +116,26 @@ describe('Login Controller', () => {
     const httpRequest = makeFakeRequest();
 
     const httpResponse = await sut.handle(httpRequest);
+
     expect(httpResponse).toEqual(unauthorized());
+  });
+
+  it('should return 500 when authentication throws', async () => {
+    const { sut, authenticationStub } = makeSut();
+    jest.spyOn(authenticationStub, 'auth').mockRejectedValueOnce(new Error());
+    const httpRequest = makeFakeRequest();
+
+    const httpResponse = await sut.handle(httpRequest);
+
+    expect(httpResponse).toEqual(serverError(new Error()));
+  });
+
+  it('should return 500 when authentication throws', async () => {
+    const { sut } = makeSut();
+    const httpRequest = makeFakeRequest();
+
+    const httpResponse = await sut.handle(httpRequest);
+
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }));
   });
 });
