@@ -10,15 +10,17 @@ import { InvalidParamError, MissingParamError } from '../../errors';
 import { badRequest, serverError } from '../../helpers/http-helper';
 
 import { AccountModel } from './../../../domain/models/account';
+import { Validation } from '../../helpers/validators/validation';
 import { ok } from './../../helpers/http-helper';
 
 export class SignUpController
   implements Controller<User, Error | AccountModel>
 {
-  private readonly emailValidator: EmailValidator;
-  private readonly addAccount: AddAccount;
-
-  constructor(emailValidator: EmailValidator, addAccount: AddAccount) {
+  constructor(
+    private readonly emailValidator: EmailValidator,
+    private readonly addAccount: AddAccount,
+    private readonly validation: Validation
+  ) {
     this.emailValidator = emailValidator;
     this.addAccount = addAccount;
   }
@@ -27,6 +29,10 @@ export class SignUpController
     httpRequest: HttpRequest<User>
   ): Promise<HttpResponse<Error | AccountModel>> {
     try {
+      const error = this.validation.validate(httpRequest.body);
+      if (error) {
+        return badRequest(error);
+      }
       const requiredFields = [
         'name',
         'email',
