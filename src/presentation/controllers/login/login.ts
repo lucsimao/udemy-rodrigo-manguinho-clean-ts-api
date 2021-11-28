@@ -7,7 +7,7 @@ import {
 } from '../../helpers/http/http-helper';
 
 import { Authentication } from '../../../domain/use-cases/authentication';
-import { Validation } from '../../helpers/validators/validation';
+import { Validation } from '../../protocols/validation';
 
 export interface ILogin {
   email: string;

@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "sucrase-node src/main/server.ts",
-    "test": "jest --passWithNoTests --verbose --noStackTrace --runInBand  --forceExit",
+    "test": "jest --passWithNoTests --verbose --noStackTrace --runInBand  --forceExit && jest --passWithNoTests --verbose --noStackTrace --runInBand  --forceExit -c jest-integration-config.ts",
     "test:integration": "npm test -- --watch -c jest-integration-config.ts",
     "test:verbose": "jest --passWithNoTests",
-    "test:unit": "npm test -- --watch",
+    "test:unit": "jest --passWithNoTests --verbose --noStackTrace --runInBand  --forceExit --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "jest --clearCache && npm test -- --coverage"
   },

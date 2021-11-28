@@ -9,7 +9,7 @@ import {
 import { Authentication } from '../../../domain/use-cases/authentication';
 import { HttpRequest } from '../../protocols';
 import { MissingParamError } from '../../errors';
-import { Validation } from '../../helpers/validators/validation';
+import { Validation } from '../../protocols/validation';
 
 const makeValidation = () => {
   class ValidationStub implements Validation {

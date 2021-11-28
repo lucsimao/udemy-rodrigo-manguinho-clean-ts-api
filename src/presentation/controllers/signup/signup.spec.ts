@@ -4,7 +4,7 @@ import { badRequest, ok, serverError } from '../../helpers/http/http-helper';
 
 import { AccountModel } from '../../../domain/models';
 import { SignUpController } from './signup';
-import { Validation } from '../../helpers/validators/validation';
+import { Validation } from '../../protocols/validation';
 
 const makeFakeAccount = () => {
   return {
