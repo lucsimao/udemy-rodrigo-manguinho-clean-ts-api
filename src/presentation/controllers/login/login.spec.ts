@@ -1,3 +1,7 @@
+import {
+  Authentication,
+  AuthenticationModel,
+} from '../../../domain/use-cases/authentication';
 import { ILogin, LoginController } from './login';
 import {
   badRequest,
@@ -6,7 +10,6 @@ import {
   unauthorized,
 } from '../../helpers/http/http-helper';
 
-import { Authentication } from '../../../domain/use-cases/authentication';
 import { HttpRequest } from '../../protocols';
 import { MissingParamError } from '../../errors';
 import { Validation } from '../../protocols/validation';
@@ -22,7 +25,7 @@ const makeValidation = () => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(email: string, password: string): Promise<string> {
+    async auth(authentication: AuthenticationModel): Promise<string> {
       return 'any_token';
     }
   }
@@ -54,7 +57,10 @@ describe('Login Controller', () => {
 
     await sut.handle(httpRequest);
 
-    expect(authSpy).toBeCalledWith('any_email@mail.com', 'any_password');
+    expect(authSpy).toBeCalledWith({
+      email: 'any_email@mail.com',
+      password: 'any_password',
+    });
   });
 
   it('should return 401 when invalid credentials are provided', async () => {
