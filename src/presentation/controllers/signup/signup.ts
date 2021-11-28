@@ -6,10 +6,10 @@ import {
   HttpResponse,
   User,
 } from './signup-protocols';
-import { InvalidParamError, MissingParamError } from '../../errors';
 import { badRequest, serverError } from '../../helpers/http-helper';
 
 import { AccountModel } from './../../../domain/models/account';
+import { InvalidParamError } from '../../errors';
 import { Validation } from '../../helpers/validators/validation';
 import { ok } from './../../helpers/http-helper';
 
@@ -33,17 +33,7 @@ export class SignUpController
       if (error) {
         return badRequest(error);
       }
-      const requiredFields = [
-        'name',
-        'email',
-        'password',
-        'passwordConfirmation',
-      ];
-      for (const field of requiredFields) {
-        if (httpRequest.body && !httpRequest.body[field]) {
-          return badRequest(new MissingParamError(field));
-        }
-      }
+
       const { name, email, password, passwordConfirmation } = httpRequest.body;
 
       if (password !== passwordConfirmation) {
