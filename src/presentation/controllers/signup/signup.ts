@@ -5,11 +5,10 @@ import {
   HttpResponse,
   User,
 } from './signup-protocols';
-import { badRequest, serverError } from '../../helpers/http-helper';
+import { badRequest, ok, serverError } from '../../helpers/http/http-helper';
 
 import { AccountModel } from './../../../domain/models/account';
 import { Validation } from '../../helpers/validators/validation';
-import { ok } from './../../helpers/http-helper';
 
 export class SignUpController
   implements Controller<User, Error | AccountModel>

@@ -4,7 +4,7 @@ import {
   ok,
   serverError,
   unauthorized,
-} from '../../helpers/http-helper';
+} from '../../helpers/http/http-helper';
 
 import { Authentication } from '../../../domain/use-cases/authentication';
 import { HttpRequest } from '../../protocols';
