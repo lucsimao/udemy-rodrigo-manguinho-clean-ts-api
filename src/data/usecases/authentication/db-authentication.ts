@@ -17,7 +17,7 @@ export class DbAuthentication implements Authentication {
   ) {}
 
   async auth(authentication: AuthenticationModel): Promise<string | null> {
-    const account = await this.loadAccountByEmailRepository.load(
+    const account = await this.loadAccountByEmailRepository.loadByEmail(
       authentication.email
     );
 
@@ -28,7 +28,10 @@ export class DbAuthentication implements Authentication {
       );
       if (isValid) {
         const accessToken = await this.tokenGenerator.encrypt(account.id);
-        await this.updateAccessTokenRepository.update(account.id, accessToken);
+        await this.updateAccessTokenRepository.updateAccessToken(
+          account.id,
+          accessToken
+        );
         return accessToken;
       }
     }
