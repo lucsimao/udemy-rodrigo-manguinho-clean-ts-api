@@ -6,11 +6,12 @@
   "scripts": {
     "start": "sucrase-node src/main/server.ts",
     "test": "jest --passWithNoTests --verbose --noStackTrace --runInBand  --forceExit && jest --passWithNoTests --verbose --noStackTrace --runInBand  --forceExit -c jest-integration-config.ts",
-    "test:integration": "npm test -- --watch -c jest-integration-config.ts",
+    "test:integration": "jest --passWithNoTests --verbose --noStackTrace --runInBand  --forceExit -c jest-integration-config.ts",
     "test:verbose": "jest --passWithNoTests",
     "test:unit": "jest --passWithNoTests --verbose --noStackTrace --runInBand  --forceExit --watch",
     "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "jest --clearCache && npm test -- --coverage"
+    "test:ci": "jest --clearCache && npm test -- --coverage",
+    "lint:deadcode": "ts-prune -e"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +38,7 @@
     "supertest": "^6.1.6",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
+    "ts-prune": "^0.10.2",
     "typescript": "^4.4.4"
   },
   "dependencies": {
