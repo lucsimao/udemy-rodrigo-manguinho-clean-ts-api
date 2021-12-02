@@ -47,9 +47,19 @@ describe('Login Routes', () => {
         .post('/api/login')
         .send({
           email: 'lucas@gmail.com',
-          password: password,
+          password: '123',
         })
         .expect(200);
+    });
+
+    test('should return 401', async () => {
+      await request(app)
+        .post('/api/login')
+        .send({
+          email: 'lucas@gmail.com',
+          password: '123',
+        })
+        .expect(401);
     });
   });
 });
