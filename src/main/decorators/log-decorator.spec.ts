@@ -5,7 +5,7 @@ import {
 } from '../../presentation/protocols';
 import { ok, serverError } from '../../presentation/helpers/http/http-helper';
 
-import { LogControllerDecorator } from './log';
+import { LogControllerDecorator } from './log-decorator';
 import { LogErrorRepository } from '../../data/protocols/db/log-error-repository';
 
 const makeFakeRequest = () => {

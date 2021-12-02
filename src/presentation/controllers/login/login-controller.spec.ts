@@ -2,7 +2,7 @@ import {
   Authentication,
   AuthenticationModel,
 } from '../../../domain/use-cases/authentication';
-import { ILogin, LoginController } from './login';
+import { ILogin, LoginController } from './login-controller';
 import {
   badRequest,
   ok,

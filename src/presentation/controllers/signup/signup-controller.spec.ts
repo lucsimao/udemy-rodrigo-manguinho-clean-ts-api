@@ -3,7 +3,7 @@ import { MissingParamError, ServerError } from '../../errors';
 import { badRequest, ok, serverError } from '../../helpers/http/http-helper';
 
 import { AccountModel } from '../../../domain/models';
-import { SignUpController } from './signup';
+import { SignUpController } from './signup-controller';
 import { Validation } from '../../protocols/validation';
 
 const makeFakeAccount = () => {

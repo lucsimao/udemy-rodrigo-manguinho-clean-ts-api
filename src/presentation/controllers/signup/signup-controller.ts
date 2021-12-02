@@ -7,7 +7,7 @@ import {
 } from './signup-protocols';
 import { badRequest, ok, serverError } from '../../helpers/http/http-helper';
 
-import { AccountModel } from './../../../domain/models/account';
+import { AccountModel } from '../../../domain/models/account';
 import { Validation } from '../../protocols/validation';
 
 export class SignUpController
